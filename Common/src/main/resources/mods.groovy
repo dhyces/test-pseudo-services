@@ -2,50 +2,49 @@ ModsDotGroovy.make {
     def modid = this.buildProperties["mod_id"]
 
     modLoader = "javafml"
-    loaderVersion = "[${(this.buildProperties["forge_version"] as String).split("\\.")[0]},)"
+    loaderVersion = "[1,)"
 
     license = "MIT"
-    issueTrackerUrl = ""
+    issueTrackerUrl = "https://github.com/dhyces/trimmed/issues/"
 
     mod {
         modId = modid
         displayName = this.buildProperties["mod_name"]
         version = this.version
         group = this.group
-        authors = [this.buildProperties["mod_author"] as String]
+        authors = [this.buildProperties["authors"] as String]
 
-        displayUrl = ""
-        sourcesUrl = ""
+        displayUrl = "https://modrinth.com/mod/trimmed/"
+        sourcesUrl = "https://github.com/dhyces/trimmed/"
         logoFile = "logo.png"
-        description = ""
+        description = "Better item overrides! Better trim support! Override it all!"
 
-        onFabricAndQuilt {
+        onFabric {
             entrypoints {
-                main = ""
-                client = ""
+                main = "dev.dhyces.pseudoservices.FabricInit"
             }
-        }
-
-        onQuilt {
-            intermediateMappings = "net.fabricmc:intermediary"
         }
 
         dependencies {
             onForge {
-                minecraft = this.minecraftVersionRange
-                forge = "[${this.forgeVersion},)"
+                minecraft = "${this.libs.versions.minecraft.range}"
+                forge = "[1)"
             }
 
             onFabric {
-                minecraft = this.minecraftVersion
+                minecraft = "${this.libs.versions.minecraft.range}"
                 fabricloader = ">=${this.fabricLoaderVersion}"
+                mod {
+                    modId = 'fabric-api'
+                    versionRange = ">=${(this.libs.versions.fabric.api as String).split("\\+")[0]}"
+                }
             }
 
             onQuilt {
-                minecraft = this.minecraftVersion
+                minecraft = "${this.libs.versions.minecraft.range}"
                 quilt_loader = ">=${this.quiltLoaderVersion}"
-                quilted_fabric_api = ">=${this.buildProperties["quilted_fabric_version"]}"
-                quilt_base = ">=${this.buildProperties["qsl_version"]}"
+                quilted_fabric_api = ">=${this.libs.versions.quilt.fabric}"
+                quilt_base = ">=${this.libs.versions.quilt.qsl}"
             }
         }
     }
@@ -54,6 +53,12 @@ ModsDotGroovy.make {
         environment = "*"
         mixin = [
                 modid + ".mixins.json"
+        ]
+    }
+
+    onFabric {
+        mixin = [
+                modid + ".fabric.mixins.json"
         ]
     }
 }

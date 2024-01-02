@@ -1,0 +1,31 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/dhyces/trimmed/issues/"
+
+[[mods]]
+  modId = "pseudoservices"
+  version = "1.0.0"
+  displayName = "MultiLoader"
+  displayURL = "https://modrinth.com/mod/trimmed/"
+  logoFile = "logo.png"
+  description = "Better item overrides! Better trim support! Override it all!"
+  authors = "Jared"
+
+    [[dependencies.pseudoservices]]
+     type = "required"
+      versionRange = "[20.4,)"
+      ordering = "NONE"
+      side = "BOTH"
+      modId = "neoforge"
+
+    [[dependencies.pseudoservices]]
+      type = "required"
+      versionRange = "[1.20.4,1.21)"
+      ordering = "NONE"
+      side = "BOTH"
+      modId = "minecraft"
+
+    [modproperties.pseudoservices]
+      group = "com.example.examplemod"
+      sourcesUrl = "https://github.com/dhyces/trimmed/"
